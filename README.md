@@ -9,7 +9,9 @@ The following features are available in this Facebook clone:
 - User authentication: Users can sign up, log in, and log out of the system.
 - Create posts: Users can create new posts, which can be text-only or include images.
 - Comment on posts: Users can leave comments on posts created by other users.
-- Profile creation: Users can create a profile with basic information, such as name and bio.
+- Profile creation: Users can create a profile with basic information, such as name, profile picture, and bio.
+- Add friends: Users can add other users as friends by sending a friend request.
+
 
 ## Installation
 
