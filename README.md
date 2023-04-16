@@ -15,13 +15,14 @@ The following features are available in this Facebook clone:
 
 To run this project on your local machine, follow these steps:
 
-1. Clone this repository to your local machine using `git clone https://github.com/Magvib/Facebook.git`
+1. Clone this repository to your local machine using `git clone https://github.com/your-username/facebook-clone.git`
 2. Navigate to the root directory of the project.
-3. Start a PHP server using the command `php -S 127.0.0.1:8000`
-4. Open `http://localhost:8000` in your web browser to view the app.
+3. Update the `DATABASE_URL` variable in the `.env` file to point to your local database.
+4. Run `npx prisma db push` in the terminal to create the necessary tables in the database.
+5. Start a PHP server using the command `php -S 127.0.0.1:8000`
+6. Open `http://localhost:8000` in your web browser to view the app.
 
-Note: You must have PHP installed on your local machine to use this method.
-
+Note: You must have PHP and Prisma installed on your local machine to use this method.
 
 ## Contributing
 
