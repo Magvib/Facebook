@@ -1,6 +1,6 @@
 # Facebook Clone
 
-This is a simple clone of Facebook with basic features such as creating posts, commenting, and creating profiles. The project was built using HTML, CSS, and JavaScript for the front-end, and Node.js and MongoDB for the back-end.
+This is a simple clone of Facebook with basic features such as creating posts, commenting, and creating profiles. The project was built using HTML, CSS, and JavaScript for the front-end, and PHP and MySQL for the back-end.
 
 ## Features
 
