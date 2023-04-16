@@ -52,7 +52,7 @@ class Model
         // Filter off id from properties
         unset($properties['id']);
 
-        $data = Db::getInstance()->query('DESCRIBE ' . $this->tableName, [], true);
+        $data = Db::getInstance()->query('DESCRIBE "' . $this->tableName . '"', [], true);
 
         // Loop through data and get only Field name
         foreach ($data as $key => $value) {
