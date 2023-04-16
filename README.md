@@ -26,9 +26,24 @@ To run this project on your local machine, follow these steps:
 
 Note: You must have PHP and Prisma installed on your local machine to use this method.
 
-## Contributing
+## Contribution
 
-If you would like to contribute to this project, please fork the repository and submit a pull request. 
+We welcome contributions from anyone who is interested in improving this project! Here's how you can get started:
+
+1. Fork the repository to your own GitHub account.
+2. Clone the forked repository to your local machine using `git clone https://github.com/your-username/facebook-clone.git`.
+3. Create a new branch for your changes using `git checkout -b your-branch-name`.
+4. Make your changes to the code and commit them to your branch.
+5. Push your branch to your forked repository using `git push origin your-branch-name`.
+6. Go to your forked repository on GitHub and submit a pull request with your changes.
+
+Before submitting a pull request, make sure that your code follows the project's coding standards and that it has been thoroughly tested.
+
+Please note that while we appreciate all contributions, we cannot guarantee that all pull requests will be accepted. We reserve the right to reject any changes that we feel are not in line with the goals and vision of the project.
+
+Thank you for considering contributing to this project!
+
+Note: I will decline any pull requests that changes any of the following: php files, html files, or the database schema. ;)
 
 ## Credits
 
