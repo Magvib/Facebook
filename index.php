@@ -13,6 +13,8 @@ $router = new AltoRouter();
 
 $router->addRoutes([
     ['GET', '/', 'HomeController#index'],
+    ['GET', '/profile/[*:username]', 'ProfileController#index'],
+    ['GET', '/profile', 'ProfileController#myProfile'],
     ['GET|POST', '/login', 'HomeController#login'],
     ['GET', '/logout', 'HomeController#logout'],
     ['GET|POST', '/register', 'HomeController#register'],
