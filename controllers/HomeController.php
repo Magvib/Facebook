@@ -7,9 +7,17 @@ class HomeController extends Controller
         if (!Auth::check()) {
             $this->redirect('/login');
         }
+
+        // TODO Top feed
+        // TODO Friends feed
+
+        // Global feed
+        $posts = Post::getAll(1, 10, 'id', 'DESC');
         
         $this->render('HomeView', [
             'title' => 'Home',
+            'user' => Auth::user(),
+            'posts' => $posts
         ]);
     }
     

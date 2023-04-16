@@ -21,6 +21,8 @@ $router->addRoutes([
 
     /* ---------------------------------- Post ---------------------------------- */
     ['GET', '/post/[i:id]', 'PostController#index'],
+    ['POST', '/post', 'PostController#create'],
+    ['POST', '/post/[i:id]/comment', 'PostController#createComment'],
     
     /* ---------------------------------- Auth ---------------------------------- */
     ['GET|POST', '/login', 'HomeController#login'],

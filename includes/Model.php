@@ -1,17 +1,19 @@
 <?php
 
-class Model {
+class Model
+{
     public $id = null;
     public $tableName = '';
 
-    public function __construct($id = null) {
+    public function __construct($id = null)
+    {
         // Set table name class name fx. User
         $this->tableName = get_class($this);
 
         if ($id == null) {
             return;
         }
-        
+
         // Get all properties from class
         $properties = get_object_vars($this);
 
@@ -90,10 +92,39 @@ class Model {
         return new static($data->id);
     }
 
-    public static function getAllByField(string $field, $value): array
+    public static function getAllByField(string $field, $value, $orderBy = null, $order = null): array
     {
         // Get data from db
-        $data = Db::getInstance()->table(get_called_class())->where($field, $value)->get();
+        $data = Db::getInstance()->table(get_called_class())->where($field, $value);
+
+        if ($orderBy && $order) {
+            $data = $data->orderBy($orderBy, $order);
+        }
+
+        $data = $data->get();
+
+        if (!$data) {
+            return new static();
+        }
+
+        $listOfData = [];
+
+        foreach ($data as $key => $value) {
+            $listOfData[] = new static($value->id);
+        }
+
+        return $listOfData;
+    }
+
+    public static function getAll(int $page, int $limit, $orderBy = null, $order = null): array
+    {
+        $data = Db::getInstance()->table(get_called_class());
+
+        if ($orderBy && $order) {
+            $data = $data->orderBy($orderBy, $order);
+        }
+
+        $data = $data->paginate($page, $limit);
 
         if (!$data) {
             return new static();
