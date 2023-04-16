@@ -6,6 +6,9 @@ load('includes');
 // Load all files fom the controllers folder
 load('controllers');
 
+// Load all files from the models folder
+load('models');
+
 function load($dir)
 {
     // Get all files in the directory

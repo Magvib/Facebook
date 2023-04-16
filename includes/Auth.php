@@ -10,16 +10,16 @@ class Auth
         return isset($_SESSION['user']);
     }
 
-    public static function user(): bool|MareiObj
+    public static function user(): bool|User
     {
         // Check if user is logged in
         if (!self::check()) {
             return false;
         }
 
-        $user = Db::getInstance()->select('username')->table('User')->where('username', '=', $_SESSION['user'])->get()->first();
+        $user = User::getByField('username', $_SESSION['user']);
 
-        if (!$user) {
+        if (!$user->id) {
             return false;
         }
         
@@ -30,10 +30,10 @@ class Auth
     {
         $encryptedPassword = md5(self::$md5Salt . $password);
 
-        $user = Db::getInstance()->select('username, password')->table('User')->where('username', '=', $username)->get()->first();
+        $user = User::getByField('username', $username);
 
         // Return false if user is not found
-        if (!$user) {
+        if (!$user->id) {
             return false;
         }
 
@@ -61,28 +61,24 @@ class Auth
         }
 
         // Check if username is already taken
-        $user = Db::getInstance()->select('username')->table('User')->where('username', '=', $username)->get()->first();
+        $user = User::getByField('username', $username);
 
-        if ($user) {
+        if ($user->id) {
             return false;
         }
 
         // Check if email is already taken
-        $user = Db::getInstance()->select('email')->table('User')->where('email', '=', $email)->get()->first();
+        $user = User::getByField('email', $email);
 
-        if ($user) {
+        if ($user->id) {
             return false;
         }
 
-        // Encrypt password
-        $encryptedPassword = md5(self::$md5Salt . $password);
-
-        // Insert user into database
-        Db::getInstance()->insert('User', [
-            'username' => $username,
-            'email' => $email,
-            'password' => $encryptedPassword
-        ]);
+        $user = new User();
+        $user->username = $username;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->save();
 
         // Set session
         $_SESSION['user'] = $username;

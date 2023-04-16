@@ -1,7 +1,5 @@
 <?php
 
-use Firehed\U2F\Server;
-
 class HomeController extends Controller
 {
     public function index($params)
@@ -46,7 +44,7 @@ class HomeController extends Controller
         Auth::logout();
 
         // Redirect to home
-        $this->redirect('/');
+        $this->redirect('/login');
     }
 
     public function register($params)
