@@ -17,7 +17,7 @@ model User {
     password String
     posts    Post[]
     comments Comment[]
-    likes    Like[]
+    likes    Likes[]
 }
 
 model Post {
@@ -29,7 +29,7 @@ model Post {
     date_add  DateTime  @default(now())
     date_upd  DateTime  @default(now())
     comments  Comment[]
-    likes     Like[]
+    likes     Likes[]
 }
 
 model Comment {
@@ -41,10 +41,10 @@ model Comment {
     author_id Int
     date_add  DateTime @default(now())
     date_upd  DateTime @default(now())
-    likes     Like[]
+    likes     Likes[]
 }
 
-model Like {
+model Likes {
     id         Int      @id @default(autoincrement())
     post       Post?    @relation(fields: [post_id], references: [id])
     post_id    Int?

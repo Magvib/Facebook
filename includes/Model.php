@@ -30,6 +30,17 @@ class Model
         }
     }
 
+    public function delete(): bool
+    {
+        // Check if id is set
+        if (isset($this->id)) {
+            // Delete
+            Db::getInstance()->delete($this->tableName, $this->id);
+        }
+
+        return true;
+    }
+    
     public function save(): bool
     {
         // Get all properties from class
@@ -58,7 +69,7 @@ class Model
             }
 
             // If empty or null then return false
-            if (empty($value) && !in_array($key, ['id', 'date_add', 'date_upd'])) {
+            if (empty($value) && !in_array($key, ['id', 'date_add', 'date_upd', 'comment_id', 'post_id'])) {
                 $error = true;
             }
         }
@@ -84,6 +95,24 @@ class Model
     {
         // Get data from db
         $data = Db::getInstance()->table(get_called_class())->where($field, $value)->get()->first();
+
+        if (!$data) {
+            return new static();
+        }
+
+        return new static($data->id);
+    }
+
+    public static function getByFields(array $fields, array $values): static
+    {
+        // Get data from db
+        $data = Db::getInstance()->table(get_called_class());
+
+        foreach ($fields as $key => $value) {
+            $data = $data->where($value, $values[$key]);
+        }
+
+        $data = $data->get()->first();
 
         if (!$data) {
             return new static();

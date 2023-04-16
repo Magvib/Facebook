@@ -10,6 +10,14 @@ class User extends Model {
     public function getPosts() {
         return Post::getAllByField('author_id', $this->id);
     }
+
+    public function getComments() {
+        return Comment::getAllByField('author_id', $this->id);
+    }
+
+    public function getLikes() {
+        return Likes::getAllByField('user_id', $this->id);
+    }
     
     public function setPassword($password) {
         $this->password = md5(self::MD5SALT . $password);

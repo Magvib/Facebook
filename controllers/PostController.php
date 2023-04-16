@@ -88,4 +88,43 @@ class PostController extends Controller
 
         $this->redirect('/');
     }
+
+    public function like($params)
+    {
+        if (!Auth::check()) {
+            $this->redirect('/login');
+        }
+
+        // post id
+        $id = $params['id'];
+
+        // Get post
+        $post = new Post($id);
+
+        // Redirect to home if post doesn't exist
+        if (!$post->id) {
+            $this->redirect('/');
+        }
+
+        // Check if user already liked post
+        $like = Likes::getByFields(
+            ['post_id', 'author_id'],
+            [$post->id, Auth::user()->id
+        ]);
+
+        if ($like->id) {
+            // Delete like
+            $like->delete();
+        } else {
+            // Create like
+            $like = new Likes();
+            $like->post_id = $post->id;
+            $like->author_id = Auth::user()->id;
+            $like->save();
+        }
+
+
+        // Redirect to home
+        $this->redirect('/post/' . $id);
+    }
 }
