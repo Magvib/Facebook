@@ -41,7 +41,7 @@ class Model
         return true;
     }
     
-    public function save(): bool
+    public function save($bypassHtml = false): bool
     {
         // Get all properties from class
         $properties = get_object_vars($this);
@@ -71,6 +71,12 @@ class Model
             // If empty or null then return false
             if (empty($value) && !in_array($key, ['id', 'date_add', 'date_upd', 'comment_id', 'post_id'])) {
                 $error = true;
+            }
+
+            // $bypassHtml is used to bypass html filtering
+            if (!$bypassHtml) {
+                // Filter html
+                $properties[$key] = filter_var($value, FILTER_SANITIZE_STRING);
             }
         }
 

@@ -18,6 +18,7 @@ $router->addRoutes([
     /* --------------------------------- Profile -------------------------------- */
     ['GET', '/profile/[*:username]', 'ProfileController#index'],
     ['GET', '/profile', 'ProfileController#myProfile'],
+    ['POST', '/profile', 'ProfileController#updateProfile'],
 
     /* ---------------------------------- Post ---------------------------------- */
     ['GET', '/post/[i:id]', 'PostController#index'],
