@@ -6,6 +6,7 @@ class User extends Model {
     public $username = '';
     public $email = '';
     public $password = '';
+    public $bio = '';
 
     public function getPosts() {
         return Post::getAllByField('author_id', $this->id);
