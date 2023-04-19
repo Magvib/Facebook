@@ -20,7 +20,7 @@ $isAuthor = $user->id == $postUser->id;
             <p class="card-text"><?= $post->content ?></p>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-<?= ($isAuthor ? '6' : '12') ?>">
                     <!-- Back button -->
                     <a style="width: 100%" id="backBtn" href="#" class="btn btn-primary">Back</a>
                     <script>
