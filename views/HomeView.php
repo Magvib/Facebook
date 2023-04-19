@@ -43,4 +43,5 @@
             </div>
         </div>
     <?php endforeach; ?>
+    <br>
 </div>
