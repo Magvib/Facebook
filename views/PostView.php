@@ -1,9 +1,13 @@
 <?php
 
 $postUser = new User($post->author_id);
+$user = Auth::user();
 
 $likes = count($post->getLikes());
 $comments = count($post->getComments());
+
+// Check if user is author of post
+$isAuthor = $user->id == $postUser->id;
 
 ?>
 
@@ -14,6 +18,29 @@ $comments = count($post->getComments());
         <div class="card-body">
             <h5 class="card-title"><?= $post->title ?></h5>
             <p class="card-text"><?= $post->content ?></p>
+
+            <div class="row">
+                <div class="col-6">
+                    <!-- Back button -->
+                    <a style="width: 100%" id="backBtn" href="#" class="btn btn-primary">Back</a>
+                    <script>
+                        document.getElementById('backBtn').addEventListener('click', function(e) {
+                            e.preventDefault();
+                            window.history.back();
+                        });
+                    </script>
+                </div>
+                <div class="col-6">
+                    <!-- Delete button -->
+                    <?php if ($isAuthor) : ?>
+                        <form action="/post/<?= $post->id ?>/delete" method="POST">
+                            <input style="width: 100%" class="btn btn-danger" type="submit" name="submit" value="Delete" />
+                        </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <br>
 
             <div class="row">
                 <div class="col-8">
@@ -31,22 +58,11 @@ $comments = count($post->getComments());
                 </div>
             </div>
 
-            <!-- Back button -->
-            <a style="width: 100%" id="backBtn" href="#" class="btn btn-primary">Back</a>
-            <script>
-                document.getElementById('backBtn').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.history.back();
-                });
-            </script>
-
-            <br /><br />
-            
             <?php foreach ($post->getComments() as $comment) : ?>
                 <?php
                 $commentUser = new User($comment->author_id);
                 ?>
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-dark" role="alert">
                     <a href="/profile/<?= $commentUser->username ?>"><?= $commentUser->username ?></a>: <?= $comment->content ?>
                 </div>
             <?php endforeach; ?>

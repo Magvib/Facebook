@@ -25,7 +25,7 @@ model Post {
     id        Int       @id @default(autoincrement())
     title     String
     content   String?
-    author    User      @relation(fields: [author_id], references: [id])
+    author    User      @relation(fields: [author_id], references: [id], onDelete: Cascade)
     author_id Int
     date_add  DateTime  @default(now())
     date_upd  DateTime  @default(now())
@@ -36,9 +36,9 @@ model Post {
 model Comment {
     id        Int      @id @default(autoincrement())
     content   String
-    post      Post     @relation(fields: [post_id], references: [id])
+    post      Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
     post_id   Int
-    author    User     @relation(fields: [author_id], references: [id])
+    author    User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
     author_id Int
     date_add  DateTime @default(now())
     date_upd  DateTime @default(now())
@@ -47,11 +47,11 @@ model Comment {
 
 model Likes {
     id         Int      @id @default(autoincrement())
-    post       Post?    @relation(fields: [post_id], references: [id])
+    post       Post?    @relation(fields: [post_id], references: [id], onDelete: Cascade)
     post_id    Int?
-    comment    Comment? @relation(fields: [comment_id], references: [id])
+    comment    Comment? @relation(fields: [comment_id], references: [id], onDelete: Cascade)
     comment_id Int?
-    author     User     @relation(fields: [author_id], references: [id])
+    author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
     author_id  Int
     date_add   DateTime @default(now())
     date_upd   DateTime @default(now())

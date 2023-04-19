@@ -22,11 +22,13 @@ $router->addRoutes([
 
     /* ---------------------------------- Post ---------------------------------- */
     ['GET', '/post/[i:id]', 'PostController#index'],
+    ['POST', '/post/[i:id]', 'PostController#update'],
+    ['POST', '/post/[i:id]/delete', 'PostController#delete'],
     ['POST', '/post', 'PostController#create'],
     ['POST', '/post/[i:id]/comment', 'PostController#createComment'],
     ['POST', '/post/[i:id]/like', 'PostController#like'],
     ['POST', '/post/[i:id]/comment/[i:id_comment]/like', 'PostController#likeComment'],
-    
+
     /* ---------------------------------- Auth ---------------------------------- */
     ['GET|POST', '/login', 'HomeController#login'],
     ['GET', '/logout', 'HomeController#logout'],
