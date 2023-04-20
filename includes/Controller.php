@@ -65,7 +65,6 @@ class Controller
                 // Call the class and method
                 try {
                     $class = new $class();
-                    throw new Exception('Method not found');
                     $class->$method($params);
                     die();
                 } catch (Exception $e) {
@@ -74,7 +73,7 @@ class Controller
             }
         }
 
-        self::errorPage();
+        self::errorPage('Page not found');
     }
 
     public static function errorPage($message = '')
@@ -83,7 +82,6 @@ class Controller
         <div id="main">
             <div class="fof">
                 <h1>Error 404</h1>
-                <br>
                 <h3><?= $message ?></h3>
             </div>
         </div>
