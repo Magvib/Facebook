@@ -65,7 +65,7 @@ class ProfileController extends Controller
         }
 
         // Check if bio isset
-        if (isset($_POST['bio']) && !empty($_POST['bio']) && preg_match('/^[a-zA-Z0-9]{3,100}$/', $_POST['bio'])) {
+        if (isset($_POST['bio']) && !empty($_POST['bio']) && preg_match('/^[a-zA-Z0-9\s]{3,100}$/', $_POST['bio'])) {
             $user->bio = $_POST['bio'];
         }
 
