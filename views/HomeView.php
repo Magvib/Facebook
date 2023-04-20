@@ -6,18 +6,25 @@
     <br />
     <h3>Home</h3>
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Create post</h5>
+    <div x-data="{ createPost: false }">
+        <!-- Button to create post -->
+        <button x-show="!createPost" @click="createPost = !createPost" class="btn btn-primary">Create Post</button>
+        <div x-show="createPost" class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create post</h5>
+    
+                <!-- Form to create post with /post -->
+                <form action="/post" method="POST">
+                    <input maxlength="50" class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" />
+                    <br />
+                    <textarea maxlength="1000" class="form-control" name="content" placeholder="Content" autocomplete="off"></textarea>
+                    <br />
+                    <input class="btn btn-primary mb-3" type="submit" name="submit" value="Create" />
+                </form>
 
-            <!-- Form to create post with /post -->
-            <form action="/post" method="POST">
-                <input maxlength="50" class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" />
-                <br />
-                <textarea maxlength="1000" class="form-control" name="content" placeholder="Content" autocomplete="off"></textarea>
-                <br />
-                <input class="btn btn-primary mb-3" type="submit" name="submit" value="Create" />
-            </form>
+                <!-- Cancel button -->
+                <button @click="createPost = !createPost;" class="btn btn-danger">Cancel</button>
+            </div>
         </div>
     </div>
 

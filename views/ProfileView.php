@@ -22,34 +22,42 @@ $isProfileUser = $user->id == $profileUser->id;
             <p class="card-text">Total comments: <?= $commentCount ?></p>
             
             <?php if($isProfileUser): ?>
-                <form action="/profile" method="POST">
-                    <!-- Username field -->
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" value="<?= $user->username ?>">
+                <div x-data="{ editProfile: false }">
+                    <!-- Button to edit profile -->
+                    <button x-show="!editProfile" @click="editProfile = !editProfile" class="btn btn-primary">Edit Profile</button>
+                    <div x-show="editProfile">
+                        <!-- Cancel button -->
+                        <button @click="editProfile = !editProfile;" class="btn btn-danger">Cancel</button>
+                        <form action="/profile" method="POST">
+                            <!-- Username field -->
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" value="<?= $user->username ?>">
+                            </div>
+                            <br>
+                            <!-- Email field -->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" value="<?= $user->email ?>">
+                            </div>
+                            <br>
+                            <!-- Bio field -->
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea class="form-control" name="bio" id="bio" rows="3"><?= $user->bio ?></textarea>
+                            </div>
+                            <br>
+                            <!-- Password field -->
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            <br>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
                     </div>
-                    <br>
-                    <!-- Email field -->
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" value="<?= $user->email ?>">
-                    </div>
-                    <br>
-                    <!-- Bio field -->
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea class="form-control" name="bio" id="bio" rows="3"><?= $user->bio ?></textarea>
-                    </div>
-                    <br>
-                    <!-- Password field -->
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password">
-                    </div>
-                    <br>
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </form>
+                </div>
             <?php endif; ?>
         </div>
     </div>
