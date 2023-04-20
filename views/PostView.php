@@ -9,12 +9,14 @@ $comments = count($post->getComments());
 // Check if user is author of post
 $isAuthor = $user->id == $postUser->id;
 
+$date = date('d/m/Y H:i', strtotime($post->date_add));
+
 ?>
 
 <div class="container text-center">
     <br />
-    <h3>Post #<?= $post->id ?> <span class="badge bg-secondary"><a href="/profile/<?= $postUser->username ?>"><?= $postUser->username ?></a></span><span class="badge bg-secondary ms-2">Likes: <?= $likes ?></span><span class="badge bg-secondary ms-2">Comments: <?= $comments ?></span></h3>
     <div class="card">
+        <h5 class="card-header">Post #<?= $post->id ?></h5>
         <div class="card-body">
             <h5 class="card-title"><?= $post->title ?></h5>
             <p class="card-text"><?= $post->content ?></p>
@@ -57,7 +59,13 @@ $isAuthor = $user->id == $postUser->id;
                     </form>
                 </div>
             </div>
-
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">User: <a href="/profile/<?= $postUser->username ?>"><?= $postUser->username ?></a></li>
+            <li class="list-group-item">Likes: <?= $likes ?></li>
+            <li class="list-group-item">Comments: <?= $comments ?></li>
+        </ul>
+        <div class="card-body">
             <?php foreach ($post->getComments() as $comment) : ?>
                 <?php
                 $commentUser = new User($comment->author_id);
@@ -66,6 +74,9 @@ $isAuthor = $user->id == $postUser->id;
                     <a href="/profile/<?= $commentUser->username ?>"><?= $commentUser->username ?></a>: <?= $comment->content ?>
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div class="card-footer text-body-secondary">
+            <?= $date ?>
         </div>
     </div>
 </div>
