@@ -206,9 +206,9 @@ class PostController extends Controller
         // Save post
         try {
             $post->save();
-            $this->redirect('/');
+            $this->redirect('/post/' . $post->id);
         } catch (\Throwable $th) {
-            $this->redirect('/');
+            $this->redirect('/post/' . $post->id);
         }
     }
 }

@@ -21,8 +21,8 @@ $date = date('d/m/Y H:i', strtotime($post->date_add));
             <h5 class="card-title"><?= $post->title ?></h5>
             <p class="card-text"><?= $post->content ?></p>
 
-            <div class="row">
-                <div class="col-<?= ($isAuthor ? '6' : '12') ?>">
+            <div class="row" x-data="{ editPost: false }">
+                <div class="col-<?= ($isAuthor ? '4' : '12') ?>">
                     <!-- Back button -->
                     <a style="width: 100%" id="backBtn" href="#" class="btn btn-primary">Back</a>
                     <script>
@@ -32,11 +32,35 @@ $date = date('d/m/Y H:i', strtotime($post->date_add));
                         });
                     </script>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <!-- Delete button -->
                     <?php if ($isAuthor) : ?>
                         <form action="/post/<?= $post->id ?>/delete" method="POST">
                             <input style="width: 100%" class="btn btn-danger" type="submit" name="submit" value="Delete" />
+                        </form>
+                    <?php endif; ?>
+                </div>
+                <div class="col-4">
+                    <!-- Edit button -->
+                    <?php if ($isAuthor) : ?>
+                        <!-- Button to editPost = true -->
+                        <button x-show="!editPost" @click="editPost = !editPost" style="width: 100%" class="btn btn-primary">Edit</button>
+                        <!-- Cancel button -->
+                        <button x-show="editPost" @click="editPost = !editPost" style="width: 100%" class="btn btn-warning">Cancel</button>
+                    <?php endif; ?>
+                </div>
+                <div class="col-12">
+                    <!-- Edit form -->
+                    <?php if ($isAuthor) : ?>
+                        <br>
+                        <form x-show="editPost" action="/post/<?= $post->id ?>" method="POST">
+                            <label for="title">Title</label>
+                            <input maxlength="50" class="form-control" type="text" name="title" placeholder="Title" value="<?= $post->title ?>" autocomplete="off" />
+                            <br>
+                            <label for="content">Content</label>
+                            <input maxlength="255" class="form-control" type="text" name="content" placeholder="Content" value="<?= $post->content ?>" autocomplete="off" />
+                            <br>
+                            <input style="width: 100%" class="btn btn-primary" type="submit" name="submit" value="Update" />
                         </form>
                     <?php endif; ?>
                 </div>
