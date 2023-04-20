@@ -3,6 +3,11 @@
 // Hide Deprecated
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+// Disable error reporting if not in development
+if ($_SERVER['SERVER_NAME'] != 'localhost' && $_SERVER['SERVER_NAME'] != '127.0.0.1') {
+    error_reporting(0);
+}
+
 // Load autoloader.php
 require 'Autoloader.php';
 
