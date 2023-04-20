@@ -26,8 +26,6 @@ $isProfileUser = $user->id == $profileUser->id;
                     <!-- Button to edit profile -->
                     <button x-show="!editProfile" @click="editProfile = !editProfile" class="btn btn-primary">Edit Profile</button>
                     <div x-show="editProfile">
-                        <!-- Cancel button -->
-                        <button @click="editProfile = !editProfile;" class="btn btn-danger">Cancel</button>
                         <form action="/profile" method="POST">
                             <!-- Username field -->
                             <div class="form-group">
@@ -53,6 +51,8 @@ $isProfileUser = $user->id == $profileUser->id;
                                 <input type="password" class="form-control" name="password" id="password">
                             </div>
                             <br>
+                            <!-- Cancel button -->
+                            <button @click.prevent="editProfile = !editProfile;" class="btn btn-danger">Cancel</button>
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>

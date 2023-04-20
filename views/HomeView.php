@@ -19,11 +19,12 @@
                     <br />
                     <textarea maxlength="1000" class="form-control" name="content" placeholder="Content" autocomplete="off"></textarea>
                     <br />
-                    <input class="btn btn-primary mb-3" type="submit" name="submit" value="Create" />
+                    <!-- Cancel button and prevent default -->
+                    <button @click.prevent="createPost = !createPost" class="btn btn-danger">Cancel</button>
+                    <input class="btn btn-primary" type="submit" name="submit" value="Create" />
                 </form>
 
-                <!-- Cancel button -->
-                <button @click="createPost = !createPost;" class="btn btn-danger">Cancel</button>
+                
             </div>
         </div>
     </div>
