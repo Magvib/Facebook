@@ -59,18 +59,19 @@ class Model
             $data[$key] = $value->Field;
         }
 
-        $error = false;
         // Loop through properties
         foreach ($properties as $key => $value) {
             // Check if property exists in db
             if (!in_array($key, $data)) {
                 // Remove property from array
                 unset($properties[$key]);
+                continue;
             }
 
             // If empty or null then return false
-            if (empty($value) && !in_array($key, ['id', 'date_add', 'date_upd', 'comment_id', 'post_id'])) {
-                $error = true;
+            if (empty($value)) {
+                unset($properties[$key]);
+                continue;
             }
 
             // $bypassHtml is used to bypass html filtering
@@ -78,11 +79,6 @@ class Model
                 // Filter html
                 $properties[$key] = filter_var($value, FILTER_SANITIZE_STRING);
             }
-        }
-
-        // Check if error
-        if ($error) {
-            return false;
         }
 
         // Check if id is set
