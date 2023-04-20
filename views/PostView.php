@@ -93,9 +93,20 @@ $date = date('d/m/Y H:i', strtotime($post->date_add));
             <?php foreach ($post->getComments() as $comment) : ?>
                 <?php
                 $commentUser = new User($comment->author_id);
+                $isCommentAuthor = $user->id == $commentUser->id;
                 ?>
-                <div class="alert alert-dark" role="alert">
-                    <a href="/profile/<?= $commentUser->username ?>"><?= $commentUser->username ?></a>: <?= $comment->content ?>
+                <div class="alert alert-dark row" role="alert">
+                    <div class="col-<?= ($isCommentAuthor ? '6' : '12') ?>" style="    margin-top: auto;margin-bottom: auto;">
+                        <a href="/profile/<?= $commentUser->username ?>"><?= $commentUser->username ?></a>: <?= $comment->content ?>
+                    </div>
+                    <?php if ($isCommentAuthor) : ?>
+                        <!-- Delete button -->
+                        <div class="col-6">
+                            <form action="/post/<?= $post->id ?>/comment/<?= $comment->id ?>/delete" method="POST">
+                                <input style="width: 100%" class="btn btn-danger" type="submit" name="submit" value="Delete" />
+                            </form>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>

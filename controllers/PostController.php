@@ -89,6 +89,100 @@ class PostController extends Controller
         $this->redirect('/');
     }
 
+    public function deleteComment($params)
+    {
+        if (!Auth::check()) {
+            $this->redirect('/login');
+        }
+
+        // post id
+        $id = $params['id'];
+
+        // Get post
+        $post = new Post($id);
+
+        // Redirect to home if post doesn't exist
+        if (!$post->id) {
+            $this->redirect('/');
+        }
+
+        // comment id
+        $id_comment = $params['id_comment'];
+
+        // Get comment
+        $comment = new Comment($id_comment);
+
+        // Redirect to home if comment doesn't exist
+        if (!$comment->id) {
+            $this->redirect('/');
+        }
+
+        // Check if user is author
+        if ($comment->author_id != Auth::user()->id) {
+            $this->redirect('/');
+        }
+
+        // Delete comment
+        $comment->delete();
+
+        // Redirect to home
+        $this->redirect('/post/' . $id);
+    }
+
+    public function editComment($params)
+    {
+        if (!Auth::check()) {
+            $this->redirect('/login');
+        }
+
+        // post id
+        $id = $params['id'];
+
+        // Get post
+        $post = new Post($id);
+
+        // Redirect to home if post doesn't exist
+        if (!$post->id) {
+            $this->redirect('/');
+        }
+
+        // comment id
+        $id_comment = $params['id_comment'];
+
+        // Get comment
+        $comment = new Comment($id_comment);
+
+        // Redirect to home if comment doesn't exist
+        if (!$comment->id) {
+            $this->redirect('/');
+        }
+
+        // Check if user is author
+        if ($comment->author_id != Auth::user()->id) {
+            $this->redirect('/');
+        }
+
+        // Check if form is submitted
+        if (isset($params['submit'])) {
+            // Check if content is set
+            if (isset($params['content'])) {
+                // Validate content
+                if (strlen($params['content']) < 1 && strlen($params['content']) > 50) {
+                    $this->redirect('/');
+                }
+
+                // Update comment
+                $comment->content = $params['content'];
+                $comment->save();
+
+                // Redirect to home
+                $this->redirect('/post/' . $id);
+            }
+        }
+
+        $this->redirect('/');
+    }
+
     public function like($params)
     {
         if (!Auth::check()) {
