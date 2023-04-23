@@ -11,6 +11,12 @@ $isAuthor = $user->id == $postUser->id;
 
 $date = date('d/m/Y H:i', strtotime($post->date_add));
 
+// Check if already liked
+$alreadyLiked = Likes::getByFields([
+    'post_id' => $post->id,
+    'author_id' => $user->id
+]);
+
 ?>
 
 <div class="container text-center">
@@ -79,7 +85,7 @@ $date = date('d/m/Y H:i', strtotime($post->date_add));
                 </div>
                 <div class="col-2">
                     <form action="/post/<?= $post->id ?>/like" method="POST">
-                        <input style="width: 100%" class="btn btn-primary mb-3" type="submit" name="submit" value="Like" />
+                        <input style="width: 100%" class="btn btn-<?= $alreadyLiked->id ? 'warning' : 'primary' ?> mb-3" type="submit" name="submit" value="<?= $alreadyLiked->id ? 'Unlike' : 'Like' ?>" />
                     </form>
                 </div>
             </div>
@@ -110,7 +116,7 @@ $date = date('d/m/Y H:i', strtotime($post->date_add));
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="card-footer text-body-secondary">
+        <div class="card-footer text-body-secondary" style="margin-top: -15px;">
             <?= $date ?>
         </div>
     </div>

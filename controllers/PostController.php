@@ -201,12 +201,10 @@ class PostController extends Controller
         }
 
         // Check if user already liked post
-        $like = Likes::getByFields(
-            ['post_id', 'author_id'],
-            [
-                $post->id, Auth::user()->id
-            ]
-        );
+        $like = Likes::getByFields([
+            'post_id' => $post->id,
+            'author_id' => Auth::user()->id
+        ]);
 
         if ($like->id) {
             // Delete like

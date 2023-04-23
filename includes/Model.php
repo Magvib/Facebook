@@ -83,9 +83,26 @@ class Model
 
         // Check if id is set
         if (isset($this->id)) {
+            // Check if date_upd exists in db
+            if (in_array('date_upd', $data)) {
+                // Set date_upd
+                $properties['date_upd'] = date('Y-m-d H:i:s');
+            }
+            
             // Update
             Db::getInstance()->update($this->tableName, $properties, $this->id);
         } else {
+            // Check if date_add and date_upd exists in db
+            if (in_array('date_add', $data)) {
+                // Set date_add
+                $properties['date_add'] = date('Y-m-d H:i:s') . '.000';
+            }
+
+            if (in_array('date_upd', $data)) {
+                // Set date_upd
+                $properties['date_upd'] = date('Y-m-d H:i:s') . '.000';
+            }
+            
             // Insert
             Db::getInstance()->insert($this->tableName, $properties);
         }
@@ -105,13 +122,13 @@ class Model
         return new static($data->id);
     }
 
-    public static function getByFields(array $fields, array $values): static
+    public static function getByFields(array $values): static
     {
         // Get data from db
         $data = Db::getInstance()->table(get_called_class());
 
-        foreach ($fields as $key => $value) {
-            $data = $data->where($value, $values[$key]);
+        foreach ($values as $key => $value) {
+            $data = $data->where($key, $value);
         }
 
         $data = $data->get()->first();
