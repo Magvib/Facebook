@@ -9,11 +9,15 @@
         <div class="card-body">
             <h5 class="card-title"><?= $profileUser->username ?></h5>
             <p class="card-text"><?= $profileUser->bio ?></p>
-            <p class="card-text">Total posts: <?= count($posts) ?></p>
-            <p class="card-text">Total comments: <?= $commentCount ?></p>
-            <p class="card-text">Total friends: <?= count($friends) ?></p>
-            
-            <?php if($isProfileUser): ?>
+        </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Total posts: <?= count($posts) ?></li>
+                <li class="list-group-item">Total comments: <?= $commentCount ?></li>
+                <li class="list-group-item">Total friends: <?= count($friends) ?></li>
+            </ul>
+        <div class="card-body">
+            <?php if ($isProfileUser) : ?>
                 <div x-data="{ editProfile: false }">
                     <!-- Button to edit profile -->
                     <button x-show="!editProfile" @click="editProfile = !editProfile" class="btn btn-primary">Edit Profile</button>
@@ -50,18 +54,18 @@
                         </form>
                     </div>
                 </div>
-            <?php else: ?>
-                <?php if(!$isFriend && !$hasRequest && !$hasSentRequest): ?>
+            <?php else : ?>
+                <?php if (!$isFriend && !$hasRequest && !$hasSentRequest) : ?>
                     <!-- Show a button to add friend -->
                     <form action="/profile/<?= $profileUser->username ?>/add" method="POST">
                         <button type="submit" class="btn btn-primary">Add Friend</button>
                     </form>
-                <?php elseif($isFriend || $hasSentRequest): ?>
+                <?php elseif ($isFriend || $hasSentRequest) : ?>
                     <!-- Button to remove friend / friend request -->
                     <form action="/profile/<?= $profileUser->username ?>/remove" method="POST">
                         <button type="submit" class="btn btn-danger"><?= $isFriend ? 'Remove Friend' : 'Remove friend request' ?></button>
                     </form>
-                <?php elseif($hasRequest): ?>
+                <?php elseif ($hasRequest) : ?>
                     <!-- Button to accept friend request -->
                     <form action="/profile/<?= $profileUser->username ?>/add" method="POST">
                         <button type="submit" class="btn btn-success">Accept Friend Request</button>
@@ -74,7 +78,7 @@
     <br />
     <h3>User Posts</h3>
     <ul class="list-group">
-        <?php foreach($posts as $post): ?>
+        <?php foreach ($posts as $post) : ?>
             <li class="list-group-item">
                 <a href="/post/<?= $post->id ?>"><?= $post->title ?></a>
             </li>
