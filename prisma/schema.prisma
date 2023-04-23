@@ -11,14 +11,16 @@ datasource db {
 }
 
 model User {
-    id       Int       @id @default(autoincrement())
-    email    String    @unique
-    username String?   @unique
-    password String
-    bio      String?
-    posts    Post[]
-    comments Comment[]
-    likes    Likes[]
+    id           Int       @id @default(autoincrement())
+    email        String    @unique
+    username     String?   @unique
+    password     String
+    bio          String?
+    posts        Post[]
+    comments     Comment[]
+    likes        Likes[]
+    FriendUser   Friend[]  @relation(name: "user")
+    FriendFriend Friend[]  @relation(name: "friend")
 }
 
 model Post {
@@ -55,4 +57,15 @@ model Likes {
     author_id  Int
     date_add   DateTime @default(now())
     date_upd   DateTime @default(now())
+}
+
+model Friend {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(name: "user", fields: [user_id], references: [id], onDelete: Cascade)
+    user_id   Int
+    friend    User     @relation(name: "friend", fields: [friend_id], references: [id], onDelete: Cascade)
+    friend_id Int
+    accepted  Boolean  @default(false)
+    date_add  DateTime @default(now())
+    date_upd  DateTime @default(now())
 }

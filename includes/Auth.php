@@ -3,7 +3,7 @@
 class Auth
 {
     private static $md5Salt = '8znZy5Xe#oQiv#Io**vZxND519v8nwvp^DRVdJ8olzYkyr*Eq$UNjMSz^oYf2C&EFba8hEUOFmBDTHFKpnXmx^yZGhGWSNF6eKG';
-    
+
     public static function check(): bool
     {
         // Check if user is logged in
@@ -22,7 +22,7 @@ class Auth
         if (!$user->id) {
             return false;
         }
-        
+
         return $user;
     }
 
@@ -82,7 +82,7 @@ class Auth
 
         // Set session
         $_SESSION['user'] = $username;
-        
+
         return true;
     }
 

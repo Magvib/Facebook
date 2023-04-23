@@ -40,7 +40,7 @@ class Model
 
         return true;
     }
-    
+
     public function save($bypassHtml = false): bool
     {
         // Get all properties from class
@@ -88,7 +88,7 @@ class Model
                 // Set date_upd
                 $properties['date_upd'] = date('Y-m-d H:i:s');
             }
-            
+
             // Update
             Db::getInstance()->update($this->tableName, $properties, $this->id);
         } else {
@@ -102,7 +102,7 @@ class Model
                 // Set date_upd
                 $properties['date_upd'] = date('Y-m-d H:i:s') . '.000';
             }
-            
+
             // Insert
             Db::getInstance()->insert($this->tableName, $properties);
         }

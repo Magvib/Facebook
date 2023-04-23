@@ -24,6 +24,8 @@ $router->addRoutes([
     ['GET', '/profile/[*:username]', 'ProfileController#index'],
     ['GET', '/profile', 'ProfileController#myProfile'],
     ['POST', '/profile', 'ProfileController#updateProfile'],
+    ['POST', '/profile/[*:username]/add', 'ProfileController#addFriend'],
+    ['POST', '/profile/[*:username]/remove', 'ProfileController#removeFriend'],
 
     /* ---------------------------------- Post ---------------------------------- */
     ['GET', '/post/[i:id]', 'PostController#index'],

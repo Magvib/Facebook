@@ -1,7 +1,7 @@
 <?php
 
 class Response
-{   
+{
     public const HTML = 'text/html';
     public const JSON = 'application/json';
     public const XML = 'application/xml';
@@ -39,7 +39,7 @@ class Response
             // Throw exception
             return;
         }
-        
+
         // Set header
         header("Content-Type: $this->type");
         header("HTTP/1.1 $this->status");

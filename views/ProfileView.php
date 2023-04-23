@@ -1,14 +1,5 @@
 <?php
 
-$user = Auth::user();
-
-$posts = $profileUser->getPosts();
-$commentCount = Comment::getAllByField('author_id', $profileUser->id);
-$commentCount = count($commentCount);
-
-// Check if user is equals to profile user
-$isProfileUser = $user->id == $profileUser->id;
-
 ?>
 
 <div class="container text-center">
@@ -20,6 +11,7 @@ $isProfileUser = $user->id == $profileUser->id;
             <p class="card-text"><?= $profileUser->bio ?></p>
             <p class="card-text">Total posts: <?= count($posts) ?></p>
             <p class="card-text">Total comments: <?= $commentCount ?></p>
+            <p class="card-text">Total friends: <?= count($friends) ?></p>
             
             <?php if($isProfileUser): ?>
                 <div x-data="{ editProfile: false }">
@@ -58,6 +50,23 @@ $isProfileUser = $user->id == $profileUser->id;
                         </form>
                     </div>
                 </div>
+            <?php else: ?>
+                <?php if(!$isFriend && !$hasRequest && !$hasSentRequest): ?>
+                    <!-- Show a button to add friend -->
+                    <form action="/profile/<?= $profileUser->username ?>/add" method="POST">
+                        <button type="submit" class="btn btn-primary">Add Friend</button>
+                    </form>
+                <?php elseif($isFriend || $hasSentRequest): ?>
+                    <!-- Button to remove friend / friend request -->
+                    <form action="/profile/<?= $profileUser->username ?>/remove" method="POST">
+                        <button type="submit" class="btn btn-danger"><?= $isFriend ? 'Remove Friend' : 'Remove friend request' ?></button>
+                    </form>
+                <?php elseif($hasRequest): ?>
+                    <!-- Button to accept friend request -->
+                    <form action="/profile/<?= $profileUser->username ?>/add" method="POST">
+                        <button type="submit" class="btn btn-success">Accept Friend Request</button>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
