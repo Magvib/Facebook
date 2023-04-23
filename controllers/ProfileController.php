@@ -41,7 +41,7 @@ class ProfileController extends Controller
         $hasRequest = !!array_filter($request, function ($friend) use ($user) {
             return $friend->friend_id == $user->id;
         });
-
+        
         $this->render('ProfileView', [
             'profileUser' => $profileUser,
             'user' => $user,
@@ -60,11 +60,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // TODO Make it possible to change username email and password
-
-        $this->render('ProfileView', [
-            'title' => $user->username . '- Profile',
-            'profileUser' => $user,
-        ]);
+        $this->index(['username' => $user->username]);
     }
 
     public function updateProfile()
