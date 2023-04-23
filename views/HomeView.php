@@ -28,7 +28,16 @@
     </div>
 
     <br />
-    <h3>Global feed</h3>
+
+    <!-- Make a mini navbar for global feed and friends feed -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link <?= $feed == 'global' ? 'active' : '' ?>" href="/">Global</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?= $feed == 'friends' ? 'active' : '' ?>" href="/feed/friends">Friends</a>
+        </li>
+    </ul>
 
     <?php foreach ($posts as $post) : ?>
         <?php

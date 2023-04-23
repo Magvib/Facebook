@@ -19,6 +19,8 @@ $router = new AltoRouter();
 $router->addRoutes([
     /* ---------------------------------- Feed ---------------------------------- */
     ['GET', '/', 'HomeController#index'],
+    ['GET', '/feed', 'HomeController#index'],
+    ['GET', '/feed/[*:feed]', 'HomeController#index'],
 
     /* --------------------------------- Profile -------------------------------- */
     ['GET', '/profile/[*:username]', 'ProfileController#index'],

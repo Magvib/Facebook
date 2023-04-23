@@ -22,4 +22,36 @@ class Post extends Model
     {
         return Likes::getAllByField('post_id', $this->id);
     }
+
+    public static function getFriendsPosts(array $friendsIds, int $page, int $limit, $orderBy = null, $order = null): array
+    {
+        $data = Db::getInstance()->table(get_called_class());
+
+        foreach ($friendsIds as $id) {
+            $data->orWhere('author_id', $id);
+        }
+
+        // If $friendsIds is empty, return empty array
+        if (!$friendsIds) {
+            return [];
+        }
+
+        if ($orderBy && $order) {
+            $data = $data->orderBy($orderBy, $order);
+        }
+
+        $data = $data->paginate($page, $limit);
+
+        if (!$data) {
+            return new static();
+        }
+
+        $listOfData = [];
+
+        foreach ($data as $key => $value) {
+            $listOfData[] = new static($value->id);
+        }
+
+        return $listOfData;
+    }
 }

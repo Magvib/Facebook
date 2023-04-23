@@ -10,16 +10,32 @@ class HomeController extends Controller
             $this->redirect('/login');
         }
 
-        // TODO Top feed
-        // TODO Friends feed
+        $user = Auth::user();
+
+        $friends = Friend::getFriends($user->id, 1, false);
+        
+        // Loop through friends and get their ids
+        $friendsIds = array_map(function($friend) {
+            return $friend->id;
+        }, $friends);
+
+        $friendPosts = Post::getFriendsPosts($friendsIds, 1, 10, 'id', 'DESC');
 
         // Global feed
         $posts = Post::getAll(1, 10, 'id', 'DESC');
 
+        $params['feed'] = isset($params['feed']) ? $params['feed'] : 'global';
+
+        // Check to see if url is /friends
+        if ($params['feed'] == 'friends') {
+            $posts = $friendPosts;
+        }
+
         $this->render('HomeView', [
             'title' => 'Home',
-            'user' => Auth::user(),
-            'posts' => $posts
+            'user' => $user,
+            'posts' => $posts,
+            'feed' => $params['feed'],
         ]);
     }
 
