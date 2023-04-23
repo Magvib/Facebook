@@ -69,7 +69,7 @@ class Model
             }
 
             // If empty or null then return false
-            if (empty($value)) {
+            if ($value === '' || $value === null) {
                 unset($properties[$key]);
                 continue;
             }
