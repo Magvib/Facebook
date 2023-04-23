@@ -41,6 +41,7 @@ $router->addRoutes([
     ['GET|POST', '/login', 'HomeController#login'],
     ['GET', '/logout', 'HomeController#logout'],
     ['GET|POST', '/register', 'HomeController#register'],
+    ['GET', '/recaptcha', 'HomeController#recaptcha'],
 ]);
 
 $match = $router->match();
