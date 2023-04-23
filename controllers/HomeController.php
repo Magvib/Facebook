@@ -2,6 +2,8 @@
 
 class HomeController extends Controller
 {
+    public $auth = false;
+
     public function index($params)
     {        
         if (!Auth::check()) {

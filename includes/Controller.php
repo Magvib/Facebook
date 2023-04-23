@@ -3,10 +3,16 @@
 class Controller
 {
     public $response = null;
+    public $auth = false;
 
     public function __construct()
     {
         $this->response = new Response();
+
+        // Check if user is logged in
+        if ($this->auth && !Auth::check()) {
+            $this->redirect('/login');
+        }
     }
 
     public function render(string $view, array $params = [], $useLayout = true)

@@ -2,12 +2,10 @@
 
 class PostController extends Controller
 {
+    public $auth = true;
+
     public function index($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 
@@ -26,10 +24,6 @@ class PostController extends Controller
 
     public function create($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // Check if form is submitted
         if (isset($params['submit'])) {
             // Check if content is set
@@ -61,10 +55,6 @@ class PostController extends Controller
 
     public function createComment($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // Check if form is submitted
         if (isset($params['submit'])) {
             // Check if content is set
@@ -91,10 +81,6 @@ class PostController extends Controller
 
     public function deleteComment($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 
@@ -131,10 +117,6 @@ class PostController extends Controller
 
     public function editComment($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 
@@ -185,10 +167,6 @@ class PostController extends Controller
 
     public function like($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 
@@ -224,10 +202,6 @@ class PostController extends Controller
 
     public function delete($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 
@@ -253,10 +227,6 @@ class PostController extends Controller
 
     public function update($params)
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         // post id
         $id = $params['id'];
 

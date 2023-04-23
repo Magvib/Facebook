@@ -2,12 +2,10 @@
 
 class ProfileController extends Controller
 {
-    public function index($params)
-    {        
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
+    public $auth = true;
 
+    public function index($params)
+    {
         // Profile id
         $username = $params['username'];
 
@@ -27,10 +25,6 @@ class ProfileController extends Controller
 
     public function myProfile()
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         $user = Auth::user();
 
         // TODO Make it possible to change username email and password
@@ -43,10 +37,6 @@ class ProfileController extends Controller
 
     public function updateProfile()
     {
-        if (!Auth::check()) {
-            $this->redirect('/login');
-        }
-
         $user = Auth::user();
         
         // Check if username isset
@@ -75,5 +65,10 @@ class ProfileController extends Controller
         } catch (\Throwable $th) {
             $this->redirect('/profile');
         }
+    }
+
+    public function sendFriendRequest($params)
+    {
+        
     }
 }
