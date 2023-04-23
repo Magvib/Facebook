@@ -58,8 +58,6 @@ class ProfileController extends Controller
     public function myProfile()
     {
         $user = Auth::user();
-
-        // TODO Make it possible to change username email and password
         $this->index(['username' => $user->username]);
     }
 

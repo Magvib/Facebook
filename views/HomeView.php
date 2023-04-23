@@ -23,8 +23,6 @@
                     <button @click.prevent="createPost = !createPost" class="btn btn-danger">Cancel</button>
                     <input class="btn btn-primary" type="submit" name="submit" value="Create" />
                 </form>
-
-
             </div>
         </div>
     </div>
