@@ -12,12 +12,11 @@ The following features are available in this Facebook clone:
 - Profile creation: Users can create a profile with basic information, such as name, profile picture, and bio.
 - Add friends: Users can add other users as friends by sending a friend request.
 
-
 ## Installation
 
 To run this project on your local machine, follow these steps:
 
-1. Clone this repository to your local machine using `git clone https://github.com/your-username/facebook-clone.git`
+1. Clone this repository to your local machine using `git clone https://github.com/Magvib/Facebook.git`
 2. Navigate to the root directory of the project.
 3. Update the `DATABASE_URL` variable in the `.env` file to point to your local database.
 4. Update the `$db_config` array in the `includes/DB.php` file to point to your local database.
@@ -26,6 +25,22 @@ To run this project on your local machine, follow these steps:
 7. Open `http://localhost:8000` in your web browser to view the app.
 
 Note: You must have PHP and Prisma installed on your local machine to use this method.
+
+## Installation with Docker
+
+To run this project with Docker, follow these steps:
+
+1. Clone the repository to your local machine using `git clone https://github.com/Magvib/Facebook.git`.
+2. Navigate to the project directory in your terminal.
+3. Create a `.env` file with the necessary environment variables.
+4. Update the `$db_config` array in the `includes/DB.php` file to point to your local database.
+5. Run `npx prisma db push` in the terminal to create the necessary tables in the database.
+5. Build the Docker container using `docker-compose build`.
+6. Start the container using `docker-compose up`.
+
+The web application will be accessible at `http://localhost:8000`. You can stop the container at any time by running `docker-compose down`.
+
+Note that you may need to update the `docker-compose.yml` file to match your desired configuration, such as setting the database credentials and port number.
 
 ## Contribution
 
